@@ -9,7 +9,7 @@ const CORS = process.env.CORS_ORIGIN;
 const app = express();
 app.use(
   cors({
-    origin: CORS,
+    origin: CORS || "*",
   })
 );
 app.use(express.json());
