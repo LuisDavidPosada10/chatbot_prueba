@@ -1,0 +1,27 @@
+.message {
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+
+.message.user {
+  justify-content: flex-end;
+}
+
+.bubble {
+  max-width: 70%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 1.125rem;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.message.user .bubble {
+  background-color: #ccdbf8;
+  border-top-right-radius: 0.25rem;
+}
+
+.message.bot .bubble {
+  background-color: white;
+  border-top-left-radius: 0.25rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}

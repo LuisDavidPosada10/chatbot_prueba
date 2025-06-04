@@ -1,0 +1,122 @@
+openapi: 3.0.0
+info:
+  title: Chatbot API
+  version: 1.0.0
+  description: API prueba tecnica para Fullstack Developer
+servers:
+  - url: http://localhost:3000
+    description: Servidor local
+  - url: https://tu-backend.onrender.com
+    description: Servidor de producción
+
+paths:
+  /api/messages:
+    get:
+      summary: Obtiene todos los mensajes ordenados cronológicamente
+      description: Retorna todos los mensajes de la conversación ordenados desde el más antiguo al más reciente
+      responses:
+        '200':
+          description: Lista de mensajes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Message'
+        '500':
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    post:
+      summary: Crea un nuevo mensaje y obtiene respuesta del bot
+      description: Almacena el mensaje del usuario y genera una respuesta automática del bot
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewMessageRequest'
+      responses:
+        '201':
+          description: Mensaje del usuario y respuesta del bot creados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Message'
+        '400':
+          description: Mensaje vacío
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Error del servidor o de la IA
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    delete:
+      summary: Elimina todos los mensajes
+      description: Borra toda la historia de la conversación (limpieza)
+      responses:
+        '200':
+          description: Mensajes eliminados correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Messages deleted successfully"
+        '500':
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Message:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        content:
+          type: string
+          example: "Hola, ¿cómo estás?"
+        sender:
+          type: string
+          enum: [user, bot]
+          example: "user"
+        createdAt:
+          type: string
+          format: date-time
+          example: "2023-11-20T15:30:00.000Z"
+      required:
+        - content
+        - sender
+
+    NewMessageRequest:
+      type: object
+      properties:
+        content:
+          type: string
+          example: "¿Cómo estás?"
+      required:
+        - content
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "El mensaje no puede estar vacío"
