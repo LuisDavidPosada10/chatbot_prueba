@@ -11,10 +11,10 @@ export const fetchMessages = async () => {
 
 export const submitMessage = async (input, setMessages, setInput) => {
   if (!input.trim()) return false;
-  
+
   try {
     const newMessage = await sendMessage(input);
-    setMessages(prev => [...prev, ...newMessage]);
+    setMessages((prev) => [...prev, ...newMessage]);
     setInput("");
     return true;
   } catch (error) {
@@ -28,12 +28,19 @@ export const autoScrollToBottom = (ref) => {
   ref.current?.scrollIntoView({ behavior: "smooth" });
 };
 
-export const clearMessages = async () => {
+export const clearMessages = async (setMessages) => {
   try {
-    await deleteMessages();
-    return true;
+    const response = await deleteMessages();
+    if (response?.success) {
+      setMessages([]);
+      return true;
+    }
+    throw new Error(response?.error || "Unknown error");
   } catch (error) {
-    console.error("Error clearing messages:", error);
+    console.error(
+      "Error clearing messages:",
+      error.response?.data || error.message
+    );
     return false;
   }
 };

@@ -31,11 +31,18 @@ export const postMessage = async (req, res) => {
   }
 };
 
-export const deleteMessages = async (res) => {
+export const deleteMessages = async (req, res) => {
   try {
     await Message.destroy({ truncate: true });
-    return res.status(200).json({ message: "Messages deleted successfully" });
+    return res.status(200).json({
+      success: true,
+      message: "Todos los mensajes fueron eliminados",
+    });
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    console.error("Error al eliminar mensajes:", error);
+    return res.status(500).json({
+      success: false,
+      error: error.message,
+    });
   }
-}
+};
