@@ -4,12 +4,10 @@ import cors from "cors";
 import messageRoutes from "./routes/message.routes.js";
 import setupSwagger from "./swagger.js";
 
-const CORS = process.env.CORS_ORIGIN;
-
 const app = express();
 app.use(
   cors({
-    origin: CORS || "*",
+    origin: process.env.CORS_ORIGIN || "*",
   })
 );
 app.use(express.json());

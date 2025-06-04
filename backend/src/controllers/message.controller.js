@@ -1,14 +1,14 @@
 import Message from "../models/messages.model.js";
 import { getIAResponse } from "../services/iaService.js";
 
-export const getMessages = async (res) => {
+export const getMessages = async (req, res) => {
   try {
     const messages = await Message.findAll({
       order: [["createdAt", "ASC"]],
     });
-    res.json(messages);
+    return res.status(200).json(messages);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 };
 
@@ -25,17 +25,17 @@ export const postMessage = async (req, res) => {
       content: iaResponse,
       sender: "bot",
     });
-    res.status(201).json([userMessage, botMessage]);
+    return res.status(201).json([userMessage, botMessage]);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 };
 
 export const deleteMessages = async (res) => {
   try {
     await Message.destroy({ truncate: true });
-    res.status(200).json({ message: "Messages deleted successfully" });
+    return res.status(200).json({ message: "Messages deleted successfully" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 }
