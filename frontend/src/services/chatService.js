@@ -31,16 +31,13 @@ export const autoScrollToBottom = (ref) => {
 export const clearMessages = async (setMessages) => {
   try {
     const response = await deleteMessages();
-    if (response?.success) {
+    if (response && response.success) {
       setMessages([]);
       return true;
     }
-    throw new Error(response?.error || "Unknown error");
+    throw new Error(response?.message || 'Failed to clear messages');
   } catch (error) {
-    console.error(
-      "Error clearing messages:",
-      error.response?.data || error.message
-    );
+    console.error("Clear error:", error.response?.data || error.message);
     return false;
   }
 };

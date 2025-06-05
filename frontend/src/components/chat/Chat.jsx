@@ -29,16 +29,19 @@ function Chat() {
     setIsLoading(false);
   };
 
-  const handleClear = async () => {
-    try {
-      await clearMessages();
-      setMessages([]);
-    } catch (error) {
-      console.error("Error clearing messages:", error);
-    } finally {
-      setShowConfirm(false);
+const handleClear = async () => {
+  try {
+    const success = await clearMessages(setMessages);
+    if (!success) {
+      alert("No se pudieron borrar los mensajes");
     }
-  };
+  } catch (error) {
+    console.error("Clear error:", error);
+    alert("Error al limpiar el chat");
+  } finally {
+    setShowConfirm(false);
+  }
+};
 
   return (
     <div className="chat">
