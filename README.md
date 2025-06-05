@@ -26,8 +26,7 @@ https://chatbot-prueba-jvmf010rv-luis-davids-projects-7e4c175c.vercel.app/
 ### Frontend
 - React (Vite)
 - Axios (para llamadas API)
-- React Icons
-- CSS Modules
+- CSS
 - Vercel (deploy)
 
 ## Instalación local
