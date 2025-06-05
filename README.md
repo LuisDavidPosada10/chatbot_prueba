@@ -56,7 +56,7 @@ Sigue estos pasos para ejecutar el proyecto en tu máquina local.
    DB_PORT=tu_puerto
    PORT=3001
    ```
-   - En el archivo connection.js llama a tus variables de entorno (.env) y
+   En el archivo connection.js llama a tus variables de entorno (.env) y
    cambia esto `EXTERNAL_DB_URL || INTERNAL_DB_URL` por esto `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`
 
 4. Importa la base de datos:
