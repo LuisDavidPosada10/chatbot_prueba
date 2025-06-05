@@ -10,7 +10,7 @@
 - Base de datos PostgreSQL para almacenar mensajes
 - Documentación API con Swagger
 
-## Demo en vivo
+## Demo
 https://chatbot-prueba-jvmf010rv-luis-davids-projects-7e4c175c.vercel.app/
 
 ## Tecnologías utilizadas
